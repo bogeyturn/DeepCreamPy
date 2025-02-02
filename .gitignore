@@ -248,7 +248,7 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
-.DS_STORE
+.DS_Store
 
 # Windows shortcuts
 *.lnk
