@@ -1,18 +1,22 @@
+import tensorflow as tf
 from keras import Model
 from keras.src.layers import Conv2D, Activation
 
-import tensorflow as tf
+
+def ceil(a, b):
+    return -(-a // b)
+
 
 def calc_c(h, kn, w, stride):
-    #c = 0
-    #for _ in range(kn, h - kn, stride):
+    # c = 0
+    # for _ in range(kn, h - kn, stride):
     #    for q in range(kn, w - kn, stride):
     #        c += 1
-    return math.ceil((h - 2 * kn) / stride) * math.ceil((w - 2 * kn) / stride)
+    return ceil((h - 2 * kn), stride) * ceil((w - 2 * kn), stride)
 
 
 def softmax(x):
-    #todo: why - 3
+    # todo: why - 3
     exp_x = tf.exp(x - 3)
     return exp_x / tf.reduce_sum(exp_x, axis=-1, keepdims=True)
 
@@ -44,7 +48,7 @@ class ContextualBlock(Model):
                                           rates=[1, 1, 1, 1],
                                           padding='VALID')
 
-        #todo: why 2 reshapes
+        # todo: why 2 reshapes
         patch1 = tf.reshape(patch1, (b, 1, c, self.k_size * self.k_size * dims))
         patch1 = tf.reshape(patch1, (b, 1, 1, c, self.k_size * self.k_size * dims))
         patch1 = tf.transpose(patch1, [0, 1, 2, 4, 3])
@@ -84,7 +88,7 @@ class ContextualBlock(Model):
 
         ACL = bg + ACL * (1.0 - mask_r)
 
-        #todo: move activation into conv2d?
+        # todo: move activation into conv2d?
         con1 = tf.concat([bg_in, ACL], axis=-1)
         ACL2 = Conv2D(dims, (1, 1), padding="valid", name="ML")(con1)
         ACL2 = Activation('elu')(ACL2)
