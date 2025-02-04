@@ -18,7 +18,7 @@ jobs:
         uses: sayyid5416/pyinstaller@v1
         with:
           python_ver: '3.12'
-          pyinstaller_ver: '==6.0.0'
+          pyinstaller_ver: '==5.13.2'
           requirements: 'app/requirements.txt'
           spec: 'app/main.spec'
           upload_exe_with_name: 'DeepCreamPy-${{ runner.os }}'
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: artifacts
 
@@ -50,7 +50,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: artifacts/DeepCreamPy-windows-latest/myapp.exe
+          asset_path: artifacts/DeepCreamPy-Windows/main.exe
           asset_name: DeepCreamPy-x86_64-pc-windows.exe
           asset_content_type: application/octet-stream
 
@@ -60,7 +60,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: artifacts/DeepCreamPy-ubuntu-latest/myapp
+          asset_path: artifacts/DeepCreamPy-Linux/main
           asset_name: DeepCreamPy-x86_64-unknown-linux
           asset_content_type: application/octet-stream
 
@@ -70,6 +70,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: artifacts/DeepCreamPy-macos-latest/myapp
+          asset_path: artifacts/DeepCreamPy-macOS/main
           asset_name: DeepCreamPy-aarch64-apple-darwin
           asset_content_type: application/octet-stream
