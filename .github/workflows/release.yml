@@ -22,7 +22,6 @@ jobs:
           requirements: 'app/requirements.txt'
           spec: 'app/main.spec'
           upload_exe_with_name: 'DeepCreamPy-${{ runner.os }}'
-          options: --onefile --name "DeepCreamPy" app/main.py
 
   release:
     needs: build
