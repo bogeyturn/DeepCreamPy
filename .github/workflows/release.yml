@@ -20,6 +20,7 @@ jobs:
           python_ver: '3.12'
           pyinstaller_ver: '==6.0.0'
           requirements: 'app/requirements.txt'
+          spec: 'app/main.spec'
           upload_exe_with_name: 'DeepCreamPy-${{ runner.os }}'
           options: --onefile --name "DeepCreamPy" app/main.py
 
